@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Family Holidays 2026–27</title>
+<title>Family Calendar 2026–27</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -13,175 +13,100 @@
     --text: #1A1A1A;
     --muted: #7A7570;
     --border: #E5E0D8;
-    --overlap: #FFF0E8;
-    --overlap-b: #FFCBA8;
-    --overlap-t: #C2440E;
-    --near: #FFF8E6;
-    --near-b: #FFD97A;
-    --near-t: #8A5C00;
-    --travel: #EDFAF2;
-    --travel-b: #90DDB0;
-    --travel-t: #1A6B3C;
-    --office: #EAF2FF;
-    --office-b: #9EC5FB;
-    --office-t: #0A3F8A;
-    --school: #F0FAF6;
-    --school-b: #7DD4B0;
-    --school-t: #0A5237;
-    --accent: #C2440E;
-    --accent2: #1A6B3C;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
-  }
-  .hero {
-    background: #1A1A1A;
-    color: #F7F4EF;
-    padding: 2rem 1.25rem 1.5rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-  .hero-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
-  .hero-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(1.4rem, 5vw, 2rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-  }
-  .hero-title em { color: #F5A26A; font-style: italic; }
-  .hero-subtitle { font-size: 12px; color: #888; margin-top: 4px; font-weight: 300; }
-  .next-chip {
-    background: #C2440E;
-    color: #fff;
-    font-size: 11px;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-weight: 500;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .next-chip span { display: block; font-size: 10px; opacity: .75; margin-bottom: 1px; }
-  .stats-row {
-    display: flex;
-    gap: 6px;
-    margin-bottom: .85rem;
-  }
-  .stat {
-    background: #2A2A2A;
-    border-radius: 8px;
-    padding: 6px 10px;
-    flex: 1;
-    text-align: center;
-  }
-  .stat-n { font-size: 18px; font-weight: 600; color: #F7F4EF; }
-  .stat-l { font-size: 10px; color: #888; margin-top: 1px; }
-  .stat-n.c-o { color: #F5A26A; }
-  .stat-n.c-g { color: #6EDFA0; }
-  .stat-n.c-y { color: #FFD97A; }
-  .filters {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-  .fbtn {
-    font-size: 11px;
-    padding: 5px 11px;
-    border-radius: 20px;
-    border: 1.5px solid;
-    cursor: pointer;
-    font-weight: 500;
-    background: transparent;
-    transition: all .15s;
-    font-family: inherit;
-    white-space: nowrap;
-  }
-  .fbtn[data-id="all"] { border-color: #555; color: #ccc; }
-  .fbtn[data-id="all"].active { background: #555; color: #fff; }
-  .fbtn[data-id="overlap"] { border-color: #F5A26A; color: #F5A26A; }
-  .fbtn[data-id="overlap"].active { background: #C2440E; border-color: #C2440E; color: #fff; }
-  .fbtn[data-id="near"] { border-color: #FFD97A; color: #FFD97A; }
-  .fbtn[data-id="near"].active { background: #8A5C00; border-color: #8A5C00; color: #fff; }
-  .fbtn[data-id="travel"] { border-color: #6EDFA0; color: #6EDFA0; }
-  .fbtn[data-id="travel"].active { background: #1A6B3C; border-color: #1A6B3C; color: #fff; }
-  .fbtn[data-id="office"] { border-color: #9EC5FB; color: #9EC5FB; }
-  .fbtn[data-id="office"].active { background: #0A3F8A; border-color: #0A3F8A; color: #fff; }
-  .fbtn[data-id="school"] { border-color: #7DD4B0; color: #7DD4B0; }
-  .fbtn[data-id="school"].active { background: #0A5237; border-color: #0A5237; color: #fff; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
-  .content { padding: 1rem 1.25rem 3rem; max-width: 680px; margin: 0 auto; }
-  .legend {
-    display: flex; flex-wrap: wrap; gap: 8px 14px;
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: .75rem 1rem;
-    margin-bottom: 1.25rem;
-  }
-  .litem { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
-  .ldot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-  .month-group { margin-bottom: 1.75rem; }
-  .month-label {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.1rem;
-    color: var(--muted);
-    letter-spacing: .02em;
-    margin-bottom: .6rem;
-    padding-bottom: .4rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .row {
-    border-radius: 10px;
-    border: 1px solid;
-    padding: .65rem .85rem;
-    margin-bottom: 6px;
-    display: grid;
-    grid-template-columns: 76px 28px 1fr;
-    grid-template-rows: auto auto;
-    column-gap: 8px;
-    row-gap: 3px;
-    position: relative;
-    transition: transform .1s, box-shadow .1s;
-  }
+  /* HERO */
+  .hero { background: #1A1A1A; color: #F7F4EF; padding: 1.25rem 1.25rem 1rem; position: sticky; top: 0; z-index: 100; }
+  .hero-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: .75rem; }
+  .hero-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.3rem, 5vw, 1.9rem); line-height: 1.1; letter-spacing: -0.02em; }
+  .hero-title em { color: #F5A26A; font-style: italic; }
+  .hero-subtitle { font-size: 11px; color: #888; margin-top: 3px; font-weight: 300; }
+  .next-chip { background: #C2440E; color: #fff; font-size: 11px; padding: 5px 10px; border-radius: 20px; font-weight: 500; white-space: nowrap; flex-shrink: 0; text-align:right; }
+  .next-chip span { display: block; font-size: 10px; opacity: .75; margin-bottom: 1px; }
+  .stats-row { display: flex; gap: 5px; margin-bottom: .75rem; flex-wrap: wrap; }
+  .stat { background: #2A2A2A; border-radius: 8px; padding: 5px 8px; flex: 1; text-align: center; min-width: 55px; }
+  .stat-n { font-size: 16px; font-weight: 600; color: #F7F4EF; }
+  .stat-l { font-size: 9px; color: #888; margin-top: 1px; }
+  .stat-n.co { color: #F5A26A; } .stat-n.cg { color: #6EDFA0; } .stat-n.cy { color: #FFD97A; } .stat-n.cp { color: #C084FC; } .stat-n.cb { color: #7DD3FC; }
+
+  /* FILTER TABS */
+  .filter-section { margin-bottom: .5rem; }
+  .filter-label { font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+  .filters { display: flex; gap: 5px; flex-wrap: wrap; }
+  .fbtn { font-size: 11px; padding: 4px 10px; border-radius: 16px; border: 1.5px solid; cursor: pointer; font-weight: 500; background: transparent; transition: all .12s; font-family: inherit; white-space: nowrap; }
+  /* category colors */
+  .fbtn[data-c="all"]        { border-color:#555;    color:#bbb; }
+  .fbtn[data-c="all"].active { background:#555; color:#fff; }
+  .fbtn[data-c="overlap"]        { border-color:#F5A26A; color:#F5A26A; }
+  .fbtn[data-c="overlap"].active { background:#C2440E; border-color:#C2440E; color:#fff; }
+  .fbtn[data-c="near"]        { border-color:#FFD97A; color:#FFD97A; }
+  .fbtn[data-c="near"].active { background:#8A5C00; border-color:#8A5C00; color:#fff; }
+  .fbtn[data-c="travel"]        { border-color:#6EDFA0; color:#6EDFA0; }
+  .fbtn[data-c="travel"].active { background:#1A6B3C; border-color:#1A6B3C; color:#fff; }
+  .fbtn[data-c="office"]        { border-color:#9EC5FB; color:#9EC5FB; }
+  .fbtn[data-c="office"].active { background:#0A3F8A; border-color:#0A3F8A; color:#fff; }
+  .fbtn[data-c="school"]        { border-color:#7DD4B0; color:#7DD4B0; }
+  .fbtn[data-c="school"].active { background:#0A5237; border-color:#0A5237; color:#fff; }
+  .fbtn[data-c="event"]        { border-color:#C084FC; color:#C084FC; }
+  .fbtn[data-c="event"].active { background:#6D28D9; border-color:#6D28D9; color:#fff; }
+  .fbtn[data-c="ptm"]        { border-color:#F9A8D4; color:#F9A8D4; }
+  .fbtn[data-c="ptm"].active { background:#9D174D; border-color:#9D174D; color:#fff; }
+  .fbtn[data-c="bagless"]        { border-color:#FCA5A5; color:#FCA5A5; }
+  .fbtn[data-c="bagless"].active { background:#991B1B; border-color:#991B1B; color:#fff; }
+  .fbtn[data-c="vacation"]        { border-color:#7DD3FC; color:#7DD3FC; }
+  .fbtn[data-c="vacation"].active { background:#075985; border-color:#075985; color:#fff; }
+
+  /* CONTENT */
+  .content { padding: 1rem 1.25rem 3rem; max-width: 700px; margin: 0 auto; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 12px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: .65rem 1rem; margin-bottom: 1.25rem; }
+  .litem { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--muted); }
+  .ldot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+  /* MONTH */
+  .month-group { margin-bottom: 1.5rem; }
+  .month-label { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--muted); margin-bottom: .5rem; padding-bottom: .35rem; border-bottom: 1px solid var(--border); }
+
+  /* ROW */
+  .row { border-radius: 10px; border: 1px solid; padding: .6rem .85rem; margin-bottom: 5px; display: grid; grid-template-columns: 80px 30px 1fr; grid-template-rows: auto auto; column-gap: 8px; row-gap: 2px; transition: transform .1s; }
   .row:active { transform: scale(.99); }
-  .row.overlap { background: var(--overlap); border-color: var(--overlap-b); }
-  .row.near    { background: var(--near);    border-color: var(--near-b);    }
-  .row.travel  { background: var(--travel);  border-color: var(--travel-b);  }
-  .row.office  { background: var(--office);  border-color: var(--office-b);  }
-  .row.school  { background: var(--school);  border-color: var(--school-b);  }
-  .r-date  { font-size: 12px; font-weight: 600; grid-row:1; grid-column:1; align-self: center; }
-  .r-day   { font-size: 10px; color: var(--muted); grid-row:1; grid-column:2; align-self: center; }
-  .r-name  { font-size: 13px; font-weight: 500; grid-row:1; grid-column:3; align-self: center; }
-  .r-meta  { grid-row:2; grid-column:1 / -1; display: flex; gap: 5px; flex-wrap: wrap; padding-top: 2px; }
-  .badge {
-    font-size: 10px; padding: 2px 7px; border-radius: 8px;
-    font-weight: 500;
-  }
-  .b-office { background: #DDE8FF; color: var(--office-t); }
-  .b-school { background: #CCF0E0; color: var(--school-t); }
-  .b-overlap { background: #FFD4B8; color: var(--overlap-t); }
-  .b-near    { background: #FFE9A0; color: var(--near-t); }
-  .b-travel  { background: #B6F0D0; color: var(--travel-t); }
-  .b-mandatory { background: #FFE0DC; color: #8A1A0A; }
-  .empty { text-align: center; color: var(--muted); font-size: 14px; padding: 3rem 0; }
-  .fade-in { animation: fi .25s ease; }
-  @keyframes fi { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform: translateY(0); } }
+  .r-date { font-size: 12px; font-weight: 600; grid-row:1; grid-column:1; align-self:center; }
+  .r-day  { font-size: 10px; color: var(--muted); grid-row:1; grid-column:2; align-self:center; }
+  .r-name { font-size: 13px; font-weight: 500; grid-row:1; grid-column:3; align-self:center; }
+  .r-meta { grid-row:2; grid-column:1 / -1; display:flex; gap:4px; flex-wrap:wrap; padding-top:2px; }
   @media (min-width: 480px) {
-    .row { grid-template-columns: 86px 34px 1fr auto; grid-template-rows: auto; }
-    .r-meta { grid-column: 4; grid-row: 1; justify-content: flex-end; align-self: center; padding-top: 0; }
+    .row { grid-template-columns: 86px 32px 1fr auto; grid-template-rows: auto; }
+    .r-meta { grid-column:4; grid-row:1; justify-content:flex-end; align-self:center; padding-top:0; }
   }
+
+  /* ROW COLORS */
+  .row.overlap  { background:#FFF0E8; border-color:#FFCBA8; }
+  .row.near     { background:#FFF8E6; border-color:#FFD97A; }
+  .row.travel   { background:#EDFAF2; border-color:#90DDB0; }
+  .row.office   { background:#EAF2FF; border-color:#9EC5FB; }
+  .row.school   { background:#F0FAF6; border-color:#7DD4B0; }
+  .row.event    { background:#F5F3FF; border-color:#C4B5FD; }
+  .row.ptm      { background:#FFF0F7; border-color:#F9A8D4; }
+  .row.bagless  { background:#FFF5F5; border-color:#FCA5A5; }
+  .row.vacation { background:#F0F9FF; border-color:#7DD3FC; }
+
+  /* BADGES */
+  .badge { font-size: 10px; padding: 2px 6px; border-radius: 7px; font-weight: 500; }
+  .b-office   { background:#DDE8FF; color:#0A3F8A; }
+  .b-school   { background:#CCF0E0; color:#0A5237; }
+  .b-both     { background:#FFD4B8; color:#C2440E; }
+  .b-near     { background:#FFE9A0; color:#8A5C00; }
+  .b-travel   { background:#B6F0D0; color:#1A6B3C; }
+  .b-event    { background:#EDE9FE; color:#6D28D9; }
+  .b-ptm      { background:#FCE7F3; color:#9D174D; }
+  .b-bagless  { background:#FEE2E2; color:#991B1B; }
+  .b-vacation { background:#E0F2FE; color:#075985; }
+  .b-mandatory{ background:#FFE0DC; color:#8A1A0A; }
+
+  .empty { text-align:center; color:var(--muted); font-size:14px; padding:3rem 0; }
+  .fade-in { animation: fi .2s ease; }
+  @keyframes fi { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:translateY(0)} }
 </style>
 </head>
 <body>
@@ -189,33 +114,44 @@
 <div class="hero">
   <div class="hero-top">
     <div>
-      <div class="hero-title">Family <em>Holidays</em><br>2026 – 27</div>
-      <div class="hero-subtitle">Office + Bala Vidya Mandir (Mitula)</div>
+      <div class="hero-title">Family <em>Calendar</em><br>2026 – 27</div>
+      <div class="hero-subtitle">Office · Bala Vidya Mandir (Mitula) · Events · PTM</div>
     </div>
-    <div class="next-chip" id="nextchip"><span>Next shared</span>Loading…</div>
+    <div class="next-chip" id="nextchip"><span>Next shared</span>–</div>
   </div>
   <div class="stats-row">
-    <div class="stat"><div class="stat-n" id="s-total">—</div><div class="stat-l">Total</div></div>
-    <div class="stat"><div class="stat-n c-o" id="s-overlap">—</div><div class="stat-l">Same day</div></div>
-    <div class="stat"><div class="stat-n c-y" id="s-near">—</div><div class="stat-l">Near dates</div></div>
-    <div class="stat"><div class="stat-n c-g" id="s-travel">—</div><div class="stat-l">Travel opp</div></div>
+    <div class="stat"><div class="stat-n" id="s-total">–</div><div class="stat-l">Total</div></div>
+    <div class="stat"><div class="stat-n co" id="s-overlap">–</div><div class="stat-l">Same day</div></div>
+    <div class="stat"><div class="stat-n cy" id="s-near">–</div><div class="stat-l">Near</div></div>
+    <div class="stat"><div class="stat-n cg" id="s-travel">–</div><div class="stat-l">Travel</div></div>
+    <div class="stat"><div class="stat-n cp" id="s-event">–</div><div class="stat-l">Events</div></div>
+    <div class="stat"><div class="stat-n cb" id="s-vacation">–</div><div class="stat-l">Vacation</div></div>
   </div>
-  <div class="filters" id="filters"></div>
+  <div class="filter-section">
+    <div class="filter-label">Filter by type</div>
+    <div class="filters" id="filters"></div>
+  </div>
 </div>
 
 <div class="content">
   <div class="legend">
     <div class="litem"><div class="ldot" style="background:#F5A26A"></div>Both – same day</div>
-    <div class="litem"><div class="ldot" style="background:#FFD97A"></div>Within 5 days</div>
-    <div class="litem"><div class="ldot" style="background:#6EDFA0"></div>Travel opp (weekday)</div>
+    <div class="litem"><div class="ldot" style="background:#FFD97A"></div>Near (≤5 days)</div>
+    <div class="litem"><div class="ldot" style="background:#6EDFA0"></div>Travel opp</div>
     <div class="litem"><div class="ldot" style="background:#9EC5FB"></div>Office only</div>
-    <div class="litem"><div class="ldot" style="background:#7DD4B0"></div>Mitula only</div>
+    <div class="litem"><div class="ldot" style="background:#7DD4B0"></div>School holiday</div>
+    <div class="litem"><div class="ldot" style="background:#C084FC"></div>School event</div>
+    <div class="litem"><div class="ldot" style="background:#F9A8D4"></div>PTM</div>
+    <div class="litem"><div class="ldot" style="background:#FCA5A5"></div>Bagless day</div>
+    <div class="litem"><div class="ldot" style="background:#7DD3FC"></div>Vacation period</div>
   </div>
   <div id="calendar"></div>
 </div>
 
 <script>
-const OFFICE=[
+// ── DATA ──────────────────────────────────────────────────────────────────────
+
+const OFFICE = [
   {date:"2026-01-01",name:"New Year",mandatory:true},
   {date:"2026-01-15",name:"Pongal"},
   {date:"2026-01-16",name:"Thiruvalluvar Day"},
@@ -231,7 +167,9 @@ const OFFICE=[
   {date:"2026-11-09",name:"Deepavali (Next day)",mandatory:true},
   {date:"2026-12-25",name:"Christmas",mandatory:true},
 ];
-const SCHOOL=[
+
+// School holidays from the holiday list (Image 1)
+const SCHOOL_HOL = [
   {date:"2026-04-03",name:"Good Friday"},
   {date:"2026-04-14",name:"Tamil New Year"},
   {date:"2026-05-01",name:"May Day"},
@@ -244,7 +182,7 @@ const SCHOOL=[
   {date:"2026-09-04",name:"Gokulashtami"},
   {date:"2026-09-14",name:"Vinayagar Chaturthi"},
   {date:"2026-10-02",name:"Gandhi Jayanthi"},
-  {date:"2026-10-10",name:"Pooja Holidays Commence"},
+  {date:"2026-10-09",name:"Pooja Holidays Commence"},
   {date:"2026-10-19",name:"Ayudha Pooja"},
   {date:"2026-10-20",name:"Vijayadasami"},
   {date:"2026-11-07",name:"Deepavali"},
@@ -258,7 +196,119 @@ const SCHOOL=[
   {date:"2027-01-16",name:"Pongal"},
   {date:"2027-01-17",name:"Pongal"},
   {date:"2027-01-26",name:"Republic Day"},
+  // Additional holidays from diary pages
+  {date:"2026-06-13",name:"Holiday"},
+  {date:"2026-06-19",name:"Holiday (Pre-KG to IX)"},
+  {date:"2026-06-20",name:"Holiday"},
+  {date:"2026-07-11",name:"Holiday"},
+  {date:"2026-07-25",name:"Holiday"},
+  {date:"2026-07-30",name:"Holiday (Pre-KG to UKG & VI–XII)"},
+  {date:"2026-07-31",name:"Holiday (Pre-KG to V)"},
+  {date:"2026-08-07",name:"Holiday"},
+  {date:"2026-09-26",name:"Holiday"},
+  {date:"2026-12-19",name:"Holiday"},
+  {date:"2027-01-30",name:"Holiday"},
+  {date:"2027-02-13",name:"Holiday"},
+  {date:"2027-02-20",name:"Holiday"},
 ];
+
+// Vacation periods (start/end as single entries for display)
+const VACATIONS = [
+  {date:"2026-12-24",name:"Christmas Vacation Commences"},
+  {date:"2027-01-04",name:"School Reopens (Pre-KG to IX & XI)"},
+  {date:"2027-03-13",name:"Last Working Day"},
+  {date:"2027-03-24",name:"Results"},
+];
+
+// School events (from Image 2 events table + Image 1 celebrations)
+const EVENTS = [
+  // Celebrations from Image 1
+  {date:"2026-08-15",name:"Independence Day Celebration"},
+  {date:"2026-08-24",name:"Onam Celebration"},
+  {date:"2026-09-03",name:"Krishna Jayanthi Celebration"},
+  {date:"2026-09-11",name:"Vinayagar Chaturthi Celebration"},
+  {date:"2026-10-09",name:"Navratri Celebration"},
+  {date:"2026-10-22",name:"Vijayadasami Celebration"},
+  {date:"2026-11-13",name:"Primary Children's Day Celebration"},
+  {date:"2026-12-23",name:"Christmas Celebration"},
+  {date:"2027-01-13",name:"Bhogi/Pongal Celebration"},
+  {date:"2027-01-26",name:"Republic Day Celebration"},
+  // School Events from Image 2
+  {date:"2026-06-04",name:"Aksharabhyasam – Pre KG"},
+  {date:"2026-06-05",name:"Investiture Ceremony & Prize Distribution"},
+  {date:"2026-06-12",name:"Kalanjali Ventures 2026"},
+  {date:"2026-06-13",name:"Mock Fire Drill"},
+  {date:"2026-06-16",name:"Inauguration of Clubs"},
+  {date:"2026-06-18",name:"Senior Inter-House Match (IX–XII)"},
+  {date:"2026-06-20",name:"Senior Sports Day"},
+  {date:"2026-06-27",name:"Lower & Upper Primary School Day"},
+  {date:"2026-07-02",name:"Senior School Day"},
+  {date:"2026-07-10",name:"BVM MUN 2026"},
+  {date:"2026-07-11",name:"BVM MUN 2026"},
+  {date:"2026-07-16",name:"BVM – AARUSH"},
+  {date:"2026-07-17",name:"BVM – AARUSH"},
+  {date:"2026-07-18",name:"BVM AARUSH / Senior Football Match"},
+  {date:"2026-07-22",name:"BVM Litsav"},
+  {date:"2026-08-19",name:"DEAR Programme"},
+  {date:"2026-08-25",name:"STEM Expo"},
+  {date:"2026-08-29",name:"Legal Symposium"},
+  {date:"2026-08-31",name:"KG Sports Day"},
+  {date:"2026-09-11",name:"Debate Finals – Juniors (English)"},
+  {date:"2026-10-30",name:"Inter-House Dramatics – Hindi & Tamil"},
+  {date:"2026-11-05",name:"Commerce Symposium"},
+  {date:"2026-11-11",name:"XLNS Bagless Day – Literary & Cultural Activities"},
+  {date:"2026-11-14",name:"Debate Finals – Seniors (English)"},
+  {date:"2026-11-19",name:"Junior Inter-House Match (VI–VIII)"},
+  {date:"2026-12-05",name:"KG School Day"},
+  {date:"2026-12-11",name:"Inter-House Dramatics English"},
+  {date:"2026-12-15",name:"Debate Finals – Tamil"},
+  {date:"2026-12-16",name:"Margazhi Utsavam"},
+  {date:"2026-12-18",name:"Fire Drill"},
+  {date:"2027-01-07",name:"Primary Sports Day & Art Exhibition"},
+  {date:"2027-01-29",name:"Bala Rang Tarang – LOE"},
+  {date:"2027-02-05",name:"(End of events)"},
+  // Bagless day on Nov 11 already captured; Teacher's day
+  {date:"2026-09-05",name:"Teachers' Day"},
+  {date:"2026-08-28",name:"Gayathri Japam – School starts 10:10am"},
+];
+
+// PTM dates (Image 14) – using a representative set (class-wise, pick common dates)
+const PTM = [
+  {date:"2026-07-10",name:"PTM – Class I"},
+  {date:"2026-07-17",name:"PTM – Class II"},
+  {date:"2026-07-18",name:"PTM – LKG / UKG"},
+  {date:"2026-07-24",name:"PTM – Class III"},
+  {date:"2026-08-07",name:"PTM – Class IV & VI"},
+  {date:"2026-08-14",name:"PTM – Class IX"},
+  {date:"2026-09-03",name:"PTM – Class VII"},
+  {date:"2026-09-05",name:"PTM – Class V"},
+  {date:"2026-09-12",name:"PTM – Pre KG & Class VIII"},
+  {date:"2026-09-12",name:"PTM – Class VIII"},
+  {date:"2027-01-09",name:"PTM – Class I"},
+  {date:"2027-01-21",name:"PTM – Class II"},
+  {date:"2027-01-23",name:"PTM – Pre KG / LKG / UKG / Class X"},
+  {date:"2027-01-27",name:"PTM – Class IX"},
+  {date:"2027-02-06",name:"PTM – Class IV & VI"},
+  {date:"2027-02-12",name:"PTM – Class VII (Fri)"},
+  {date:"2027-02-19",name:"PTM – Class III"},
+  {date:"2027-02-26",name:"PTM – Class V"},
+];
+
+// Bagless days from diary pages
+const BAGLESS = [
+  {date:"2026-06-18",name:"Bagless Day (Classes 1–8)"},
+  {date:"2026-07-27",name:"Bagless Day (Classes 1–8)"},
+  {date:"2026-08-24",name:"Bagless Day (Classes 1–8)"},
+  {date:"2026-10-08",name:"Bagless Day (Classes 1–8)"},
+  {date:"2026-11-05",name:"Bagless Day (Classes 1–8)"},
+  {date:"2026-11-14",name:"Bagless Day (Classes 1–8)"},
+  {date:"2026-12-15",name:"Bagless Day (Classes 1–8)"},
+  {date:"2027-01-13",name:"Bagless Day (Classes 1–8)"},
+  {date:"2027-02-01",name:"Bagless Day (Classes 1–8)"},
+  {date:"2027-02-22",name:"Bagless Day (Classes 1–8)"},
+];
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
 const DAYS=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
 const MS=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -269,55 +319,96 @@ function dn(s){return DAYS[td(s).getDay()].slice(0,3);}
 function iwd(s){const d=td(s).getDay();return d>0&&d<6;}
 function diff(a,b){return Math.abs((td(a)-td(b))/86400000);}
 
+// ── BUILD MASTER LIST ─────────────────────────────────────────────────────────
 function build(){
   const map={};
-  OFFICE.forEach(h=>{if(!map[h.date])map[h.date]={date:h.date,office:[],school:[]};map[h.date].office.push(h);});
-  SCHOOL.forEach(h=>{if(!map[h.date])map[h.date]={date:h.date,office:[],school:[]};map[h.date].school.push(h);});
+
+  function add(date,type,obj){
+    if(!map[date])map[date]={date,office:[],school:[],events:[],ptm:[],bagless:[],vacation:[]};
+    map[date][type].push(obj);
+  }
+
+  OFFICE.forEach(h=>add(h.date,"office",h));
+  SCHOOL_HOL.forEach(h=>add(h.date,"school",h));
+  EVENTS.forEach(e=>add(e.date,"events",e));
+  PTM.forEach(p=>add(p.date,"ptm",p));
+  BAGLESS.forEach(b=>add(b.date,"bagless",b));
+  VACATIONS.forEach(v=>add(v.date,"vacation",v));
+
   const entries=Object.values(map).sort((a,b)=>a.date.localeCompare(b.date));
-  const all=entries.map(e=>e.date);
+  const allDates=entries.map(e=>e.date);
+
   entries.forEach((e,i)=>{
-    e.overlap=e.office.length>0&&e.school.length>0;
+    e.hasHol = e.office.length>0||e.school.length>0;
+    e.overlap = e.office.length>0&&e.school.length>0;
     e.near=false;
-    if(!e.overlap){
-      for(let j=0;j<all.length;j++){
-        if(i!==j&&diff(e.date,all[j])<=5&&diff(e.date,all[j])>0){
+    if(!e.overlap&&e.hasHol){
+      for(let j=0;j<allDates.length;j++){
+        if(i!==j&&diff(e.date,allDates[j])<=5&&diff(e.date,allDates[j])>0){
           const ej=entries[j];
-          if((e.office.length>0&&ej.school.length>0)||(e.school.length>0&&ej.office.length>0)){e.near=true;break;}
+          if((e.office.length>0&&ej.school.length>0)||(e.school.length>0&&ej.office.length>0)){
+            e.near=true;break;
+          }
         }
       }
     }
-    e.travel=e.school.length>0&&e.office.length===0&&iwd(e.date);
+    e.travel=e.school.length>0&&e.office.length===0&&iwd(e.date)&&!e.overlap;
   });
   return entries;
 }
 
 const entries=build();
+
+// ── FILTER DEFS ───────────────────────────────────────────────────────────────
+const filterDefs=[
+  {id:"all",    label:"All"},
+  {id:"overlap",label:"Same day"},
+  {id:"near",   label:"Near dates"},
+  {id:"travel", label:"Travel opp"},
+  {id:"office", label:"Office holiday"},
+  {id:"school", label:"School holiday"},
+  {id:"event",  label:"School events"},
+  {id:"ptm",    label:"PTM"},
+  {id:"bagless",label:"Bagless days"},
+  {id:"vacation",label:"Vacation"},
+];
+
 let activeFilter="all";
 
-function rowType(e){
+function matches(e){
+  if(activeFilter==="all")return true;
+  if(activeFilter==="overlap")return e.overlap;
+  if(activeFilter==="near")return e.near&&!e.overlap;
+  if(activeFilter==="travel")return e.travel;
+  if(activeFilter==="office")return e.office.length>0&&!e.overlap&&!e.near;
+  if(activeFilter==="school")return e.school.length>0&&!e.overlap&&!e.near&&!e.travel;
+  if(activeFilter==="event")return e.events.length>0;
+  if(activeFilter==="ptm")return e.ptm.length>0;
+  if(activeFilter==="bagless")return e.bagless.length>0;
+  if(activeFilter==="vacation")return e.vacation.length>0;
+  return true;
+}
+
+function rowClass(e){
   if(e.overlap)return"overlap";
   if(e.near)return"near";
   if(e.travel)return"travel";
   if(e.office.length>0)return"office";
-  return"school";
+  if(e.school.length>0)return"school";
+  if(e.ptm.length>0)return"ptm";
+  if(e.bagless.length>0)return"bagless";
+  if(e.vacation.length>0)return"vacation";
+  return"event";
 }
 
-const filterDefs=[
-  {id:"all",label:"All"},
-  {id:"overlap",label:"Same day"},
-  {id:"near",label:"Near dates"},
-  {id:"travel",label:"Travel opps"},
-  {id:"office",label:"Office only"},
-  {id:"school",label:"Mitula only"},
-];
-
+// ── RENDER ────────────────────────────────────────────────────────────────────
 function renderFilters(){
   const fc=document.getElementById("filters");
   fc.innerHTML="";
   filterDefs.forEach(f=>{
     const b=document.createElement("button");
     b.className="fbtn"+(activeFilter===f.id?" active":"");
-    b.dataset.id=f.id;
+    b.dataset.c=f.id;
     b.textContent=f.label;
     b.onclick=()=>{activeFilter=f.id;render();};
     fc.appendChild(b);
@@ -326,34 +417,39 @@ function renderFilters(){
 
 function render(){
   renderFilters();
-  const today=new Date();
-  const stats={overlap:0,near:0,travel:0,office:0,school:0};
-  entries.forEach(e=>{const t=rowType(e);if(stats[t]!==undefined)stats[t]++;});
-  document.getElementById("s-total").textContent=entries.length;
-  document.getElementById("s-overlap").textContent=stats.overlap;
-  document.getElementById("s-near").textContent=stats.near;
-  document.getElementById("s-travel").textContent=stats.travel;
 
-  const nextOver=entries.find(e=>e.overlap&&td(e.date)>=today);
-  if(nextOver){
+  // stats
+  let tot=entries.length,ov=0,nr=0,tr=0,ev=0,vac=0;
+  entries.forEach(e=>{
+    if(e.overlap)ov++;
+    if(e.near&&!e.overlap)nr++;
+    if(e.travel)tr++;
+    if(e.events.length>0)ev++;
+    if(e.vacation.length>0)vac++;
+  });
+  document.getElementById("s-total").textContent=tot;
+  document.getElementById("s-overlap").textContent=ov;
+  document.getElementById("s-near").textContent=nr;
+  document.getElementById("s-travel").textContent=tr;
+  document.getElementById("s-event").textContent=ev;
+  document.getElementById("s-vacation").textContent=vac;
+
+  // next shared holiday
+  const today=new Date();
+  const nxt=entries.find(e=>e.overlap&&td(e.date)>=today);
+  if(nxt){
     const nc=document.getElementById("nextchip");
-    const n=[...new Set([...nextOver.office.map(x=>x.name),...nextOver.school.map(x=>x.name)])][0];
-    nc.innerHTML=`<span>Next shared</span>${fd(nextOver.date)}`;
-    nc.title=n;
+    nc.innerHTML=`<span>Next shared</span>${fd(nxt.date)}`;
   }
 
-  const filtered=entries.filter(e=>{
-    if(activeFilter==="all")return true;
-    return rowType(e)===activeFilter;
-  });
-
+  const filtered=entries.filter(matches);
   const cal=document.getElementById("calendar");
-  if(filtered.length===0){cal.innerHTML='<div class="empty">No holidays in this category.</div>';return;}
+  if(!filtered.length){cal.innerHTML='<div class="empty">No entries for this filter.</div>';return;}
 
   const byMonth={};
   filtered.forEach(e=>{
     const d=td(e.date);
-    const key=d.getFullYear()+"-"+d.getMonth();
+    const key=d.getFullYear()+"-"+String(d.getMonth()).padStart(2,"0");
     if(!byMonth[key]){byMonth[key]={label:MONTHS[d.getMonth()]+" "+d.getFullYear(),entries:[]};}
     byMonth[key].entries.push(e);
   });
@@ -362,16 +458,36 @@ function render(){
   Object.values(byMonth).forEach(m=>{
     html+=`<div class="month-group"><div class="month-label">${m.label}</div>`;
     m.entries.forEach(e=>{
-      const t=rowType(e);
-      const names=[...new Set([...e.office.map(x=>x.name),...e.school.map(x=>x.name)])].join(" · ");
+      const rc=rowClass(e);
+      // collect all names
+      const allNames=[
+        ...e.office.map(x=>x.name),
+        ...e.school.map(x=>x.name),
+        ...e.events.map(x=>x.name),
+        ...e.ptm.map(x=>x.name),
+        ...e.bagless.map(x=>x.name),
+        ...e.vacation.map(x=>x.name),
+      ];
+      const uniq=[...new Set(allNames)].join(" · ");
+
       let badges="";
       if(e.office.length>0)badges+=`<span class="badge b-office">Office</span>`;
-      if(e.school.length>0)badges+=`<span class="badge b-school">Mitula</span>`;
-      if(e.overlap)badges+=`<span class="badge b-overlap">Both</span>`;
+      if(e.school.length>0)badges+=`<span class="badge b-school">Holiday</span>`;
+      if(e.overlap)badges+=`<span class="badge b-both">Both</span>`;
       else if(e.near)badges+=`<span class="badge b-near">Near</span>`;
       if(e.travel)badges+=`<span class="badge b-travel">✈ Travel</span>`;
+      if(e.events.length>0)badges+=`<span class="badge b-event">Event</span>`;
+      if(e.ptm.length>0)badges+=`<span class="badge b-ptm">PTM</span>`;
+      if(e.bagless.length>0)badges+=`<span class="badge b-bagless">Bagless</span>`;
+      if(e.vacation.length>0)badges+=`<span class="badge b-vacation">Vacation</span>`;
       if(e.office.some(x=>x.mandatory))badges+=`<span class="badge b-mandatory">Mandatory</span>`;
-      html+=`<div class="row ${t}"><div class="r-date">${fd(e.date)}</div><div class="r-day">${dn(e.date)}</div><div class="r-name">${names}</div><div class="r-meta">${badges}</div></div>`;
+
+      html+=`<div class="row ${rc}">
+        <div class="r-date">${fd(e.date)}</div>
+        <div class="r-day">${dn(e.date)}</div>
+        <div class="r-name">${uniq}</div>
+        <div class="r-meta">${badges}</div>
+      </div>`;
     });
     html+="</div>";
   });
