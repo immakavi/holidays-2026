@@ -168,27 +168,48 @@ const OFFICE = [
   {date:"2026-12-25",name:"Christmas",mandatory:true},
 ];
 
-// School holidays from the holiday list (Image 1)
+// School holidays from the holiday list (Image 1) + diary pages
 const SCHOOL_HOL = [
   {date:"2026-04-03",name:"Good Friday"},
   {date:"2026-04-14",name:"Tamil New Year"},
   {date:"2026-05-01",name:"May Day"},
   {date:"2026-05-28",name:"Bakrid"},
+  {date:"2026-06-13",name:"Holiday"},
+  // Jun 19: School holiday because Senior Sports Day function (school closed for regular classes)
+  {date:"2026-06-19",name:"Holiday – School function (Senior Sports Day)"},
+  {date:"2026-06-20",name:"Holiday"},
   {date:"2026-06-26",name:"Muharram"},
+  {date:"2026-07-11",name:"Holiday"},
+  {date:"2026-07-25",name:"Holiday"},
+  {date:"2026-07-30",name:"Holiday (Pre-KG to UKG & VI–XII)"},
+  {date:"2026-07-31",name:"Holiday (Pre-KG to V)"},
+  {date:"2026-08-07",name:"Holiday"},
   {date:"2026-08-15",name:"Independence Day"},
   {date:"2026-08-21",name:"Varalakshmi Vratham"},
   {date:"2026-08-26",name:"Onam & Milad-Un-Nabi"},
   {date:"2026-08-27",name:"Avani Avittam"},
   {date:"2026-09-04",name:"Gokulashtami"},
   {date:"2026-09-14",name:"Vinayagar Chaturthi"},
+  {date:"2026-09-26",name:"Holiday"},
   {date:"2026-10-02",name:"Gandhi Jayanthi"},
-  {date:"2026-10-09",name:"Pooja Holidays Commence"},
+  // Pooja vacation: Oct 9 (holidays commence) through Oct 19 (Ayudha Pooja), school reopens Oct 20
+  {date:"2026-10-09",name:"Pooja Vacation Begins – Ayudha Pooja"},
+  {date:"2026-10-10",name:"Pooja Vacation"},
+  {date:"2026-10-11",name:"Pooja Vacation"},
+  {date:"2026-10-12",name:"Pooja Vacation"},
+  {date:"2026-10-13",name:"Pooja Vacation"},
+  {date:"2026-10-14",name:"Pooja Vacation"},
+  {date:"2026-10-15",name:"Pooja Vacation"},
+  {date:"2026-10-16",name:"Pooja Vacation"},
+  {date:"2026-10-17",name:"Pooja Vacation"},
+  {date:"2026-10-18",name:"Pooja Vacation"},
   {date:"2026-10-19",name:"Ayudha Pooja"},
-  {date:"2026-10-20",name:"Vijayadasami"},
+  {date:"2026-10-20",name:"Vijayadasami – School Reopens"},
   {date:"2026-11-07",name:"Deepavali"},
   {date:"2026-11-08",name:"Deepavali"},
   {date:"2026-11-09",name:"Deepavali"},
   {date:"2026-11-24",name:"Karthigai Deepam"},
+  {date:"2026-12-19",name:"Holiday"},
   {date:"2026-12-25",name:"Christmas"},
   {date:"2027-01-01",name:"New Year"},
   {date:"2027-01-14",name:"Bhogi"},
@@ -196,26 +217,20 @@ const SCHOOL_HOL = [
   {date:"2027-01-16",name:"Pongal"},
   {date:"2027-01-17",name:"Pongal"},
   {date:"2027-01-26",name:"Republic Day"},
-  // Additional holidays from diary pages
-  {date:"2026-06-13",name:"Holiday"},
-  {date:"2026-06-19",name:"Holiday (Pre-KG to IX)"},
-  {date:"2026-06-20",name:"Holiday"},
-  {date:"2026-07-11",name:"Holiday"},
-  {date:"2026-07-25",name:"Holiday"},
-  {date:"2026-07-30",name:"Holiday (Pre-KG to UKG & VI–XII)"},
-  {date:"2026-07-31",name:"Holiday (Pre-KG to V)"},
-  {date:"2026-08-07",name:"Holiday"},
-  {date:"2026-09-26",name:"Holiday"},
-  {date:"2026-12-19",name:"Holiday"},
   {date:"2027-01-30",name:"Holiday"},
   {date:"2027-02-13",name:"Holiday"},
   {date:"2027-02-20",name:"Holiday"},
 ];
 
-// Vacation periods (start/end as single entries for display)
+// Vacation periods – key markers shown as vacation-type entries
 const VACATIONS = [
+  // Pooja vacation block already in SCHOOL_HOL above; add markers here too
+  {date:"2026-10-09",name:"Pooja Vacation Commences"},
+  {date:"2026-10-20",name:"School Reopens After Pooja Vacation"},
+  // Christmas vacation
   {date:"2026-12-24",name:"Christmas Vacation Commences"},
   {date:"2027-01-04",name:"School Reopens (Pre-KG to IX & XI)"},
+  // End of year
   {date:"2027-03-13",name:"Last Working Day"},
   {date:"2027-03-24",name:"Results"},
 ];
@@ -394,10 +409,14 @@ function rowClass(e){
   if(e.near)return"near";
   if(e.travel)return"travel";
   if(e.office.length>0)return"office";
-  if(e.school.length>0)return"school";
+  if(e.vacation.length>0)return"vacation";
+  if(e.school.length>0){
+    // Pooja vacation days mid-October shown as vacation colour
+    if(e.school.some(x=>x.name.toLowerCase().includes("pooja vacation")))return"vacation";
+    return"school";
+  }
   if(e.ptm.length>0)return"ptm";
   if(e.bagless.length>0)return"bagless";
-  if(e.vacation.length>0)return"vacation";
   return"event";
 }
 
@@ -436,6 +455,8 @@ function render(){
 
   // next shared holiday
   const today=new Date();
+  const curKey=today.getFullYear()+"-"+String(today.getMonth()).padStart(2,"0");
+
   const nxt=entries.find(e=>e.overlap&&td(e.date)>=today);
   if(nxt){
     const nc=document.getElementById("nextchip");
@@ -450,16 +471,17 @@ function render(){
   filtered.forEach(e=>{
     const d=td(e.date);
     const key=d.getFullYear()+"-"+String(d.getMonth()).padStart(2,"0");
-    if(!byMonth[key]){byMonth[key]={label:MONTHS[d.getMonth()]+" "+d.getFullYear(),entries:[]};}
+    if(!byMonth[key]){byMonth[key]={label:MONTHS[d.getMonth()]+" "+d.getFullYear(),key,entries:[]};}
     byMonth[key].entries.push(e);
   });
 
   let html="";
   Object.values(byMonth).forEach(m=>{
-    html+=`<div class="month-group"><div class="month-label">${m.label}</div>`;
+    const isCur=m.key===curKey;
+    html+=`<div class="month-group" id="m-${m.key}">
+      <div class="month-label">${m.label}${isCur?' <span style="font-size:10px;background:#C2440E;color:#fff;padding:2px 7px;border-radius:8px;vertical-align:middle;font-family:\'DM Sans\',sans-serif;font-weight:500">NOW</span>':''}</div>`;
     m.entries.forEach(e=>{
       const rc=rowClass(e);
-      // collect all names
       const allNames=[
         ...e.office.map(x=>x.name),
         ...e.school.map(x=>x.name),
@@ -492,6 +514,19 @@ function render(){
     html+="</div>";
   });
   cal.innerHTML=`<div class="fade-in">${html}</div>`;
+
+  // Scroll to current month (or nearest future month if current has no entries)
+  setTimeout(()=>{
+    const keys=Object.keys(byMonth).sort();
+    // find current or next available month key
+    let targetKey=keys.find(k=>k>=curKey)||keys[0];
+    const el=document.getElementById("m-"+targetKey);
+    if(el){
+      const heroH=document.querySelector(".hero").offsetHeight;
+      const top=el.getBoundingClientRect().top+window.scrollY-heroH-12;
+      window.scrollTo({top,behavior:"smooth"});
+    }
+  },50);
 }
 
 render();
