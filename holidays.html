@@ -362,7 +362,7 @@ function setSyncUI(state, msg){
   el.textContent = msg || {loading:"Loading…", saving:"Saving…", ok:"✓ Synced", error:"⚠ Offline"}[state];
 }
 
-const usingSheets = () => SCRIPT_URL && SCRIPT_URL !== "https://script.google.com/macros/s/AKfycbzg-E0tlOFvdpqCnESqFc8_WVWjNg4nQEsozgDB_U6kgx7Of2TAz8Bj7jK-co8sW5RN/exec";
+const usingSheets = () => SCRIPT_URL && SCRIPT_URL !== "YOUR_APPS_SCRIPT_URL_HERE";
 
 async function initLoad(){
   setSyncUI("loading");
