@@ -5,885 +5,99 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Family Calendar 2026–27</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#F7F4EF;--card:#fff;--text:#1A1A1A;--muted:#7A7570;--border:#E5E0D8;}
+:root{--bg:#F7F4EF;--card:#fff;--text:#1A1A1A;--muted:#7A7570;--border:#E5E0D8;--accent:#8B7E66;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;min-height:100vh;-webkit-font-smoothing:antialiased;}
-
-/* ── HERO ── */
-.hero{background:#1A1A1A;color:#F7F4EF;padding:1rem 1.25rem .8rem;position:sticky;top:0;z-index:100;}
-.hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;margin-bottom:.55rem;}
-.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(1.1rem,5vw,1.7rem);line-height:1.1;letter-spacing:-.02em;}
-.hero-title em{color:#F5A26A;font-style:italic;}
-.hero-sub{font-size:11px;color:#888;margin-top:2px;font-weight:300;}
-.next-chip{background:#C2440E;color:#fff;font-size:11px;padding:4px 9px;border-radius:14px;font-weight:500;white-space:nowrap;flex-shrink:0;text-align:right;line-height:1.5;}
-.next-chip span{display:block;font-size:9px;opacity:.75;}
-.sync-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;}
-.sync-status{font-size:11px;color:#888;}
-.sync-status.ok{color:#6EDFA0;} .sync-status.err{color:#F5A26A;} .sync-status.busy{color:#aaa;}
-.reload-btn{font-size:10px;color:#888;background:transparent;border:1px solid #444;border-radius:8px;padding:2px 8px;cursor:pointer;font-family:inherit;}
-
-/* ── CLASS PICKER ── */
-.class-row{display:flex;align-items:center;gap:4px;margin-bottom:.5rem;flex-wrap:wrap;}
-.class-label{font-size:10px;color:#777;text-transform:uppercase;letter-spacing:.05em;margin-right:2px;}
-.cbtn{font-size:11px;padding:3px 8px;border-radius:11px;border:1.5px solid #444;color:#aaa;background:transparent;cursor:pointer;font-family:inherit;transition:all .12s;}
-.cbtn.active{background:#F5A26A;border-color:#F5A26A;color:#1A1A1A;font-weight:600;}
-
-/* ── STATS ── */
-.stats-row{display:flex;gap:4px;margin-bottom:.5rem;flex-wrap:wrap;}
-.stat{background:#2A2A2A;border-radius:7px;padding:4px 5px;flex:1;text-align:center;min-width:44px;}
-.stat-n{font-size:13px;font-weight:600;color:#F7F4EF;}
-.stat-l{font-size:9px;color:#777;margin-top:1px;}
-.co{color:#F5A26A;}.cg{color:#6EDFA0;}.cy{color:#FFD97A;}.cp{color:#C084FC;}.cb{color:#7DD3FC;}.cx{color:#FCD34D;}
-
-/* ── FILTERS ── */
-.filters{display:flex;gap:4px;flex-wrap:wrap;}
-.fbtn{font-size:11px;padding:3px 8px;border-radius:12px;border:1.5px solid;cursor:pointer;font-weight:500;background:transparent;transition:all .12s;font-family:inherit;white-space:nowrap;}
-.fbtn[data-c="all"]{border-color:#555;color:#bbb;} .fbtn[data-c="all"].active{background:#555;color:#fff;}
-.fbtn[data-c="overlap"]{border-color:#F5A26A;color:#F5A26A;} .fbtn[data-c="overlap"].active{background:#C2440E;border-color:#C2440E;color:#fff;}
-.fbtn[data-c="near"]{border-color:#FFD97A;color:#FFD97A;} .fbtn[data-c="near"].active{background:#8A5C00;border-color:#8A5C00;color:#fff;}
-.fbtn[data-c="travel"]{border-color:#6EDFA0;color:#6EDFA0;} .fbtn[data-c="travel"].active{background:#1A6B3C;border-color:#1A6B3C;color:#fff;}
-.fbtn[data-c="office"]{border-color:#9EC5FB;color:#9EC5FB;} .fbtn[data-c="office"].active{background:#0A3F8A;border-color:#0A3F8A;color:#fff;}
-.fbtn[data-c="school"]{border-color:#7DD4B0;color:#7DD4B0;} .fbtn[data-c="school"].active{background:#0A5237;border-color:#0A5237;color:#fff;}
-.fbtn[data-c="exam"]{border-color:#F97316;color:#F97316;} .fbtn[data-c="exam"].active{background:#C2410C;border-color:#C2410C;color:#fff;}
-.fbtn[data-c="event"]{border-color:#C084FC;color:#C084FC;} .fbtn[data-c="event"].active{background:#6D28D9;border-color:#6D28D9;color:#fff;}
-.fbtn[data-c="ptm"]{border-color:#F9A8D4;color:#F9A8D4;} .fbtn[data-c="ptm"].active{background:#9D174D;border-color:#9D174D;color:#fff;}
-.fbtn[data-c="bagless"]{border-color:#FCA5A5;color:#FCA5A5;} .fbtn[data-c="bagless"].active{background:#991B1B;border-color:#991B1B;color:#fff;}
-.fbtn[data-c="vacation"]{border-color:#7DD3FC;color:#7DD3FC;} .fbtn[data-c="vacation"].active{background:#075985;border-color:#075985;color:#fff;}
-.fbtn[data-c="custom"]{border-color:#FCD34D;color:#FCD34D;} .fbtn[data-c="custom"].active{background:#92400E;border-color:#92400E;color:#fff;}
-
-/* ── CONTENT ── */
-.content{padding:.9rem 1.25rem 5rem;max-width:700px;margin:0 auto;}
-.legend{display:flex;flex-wrap:wrap;gap:5px 12px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:.6rem 1rem;margin-bottom:1rem;}
-.litem{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);}
-.ldot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
-.month-group{margin-bottom:1.4rem;}
-.month-label{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--muted);margin-bottom:.4rem;padding-bottom:.3rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
-.now-pill{font-size:10px;background:#C2440E;color:#fff;padding:1px 7px;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:500;}
-
-/* ── ROW ── */
-.row{border-radius:10px;border:1px solid;padding:.5rem .8rem;margin-bottom:5px;display:grid;grid-template-columns:78px 28px 1fr;grid-template-rows:auto auto;column-gap:8px;row-gap:2px;cursor:pointer;transition:filter .1s;}
-.row:hover{filter:brightness(.97);}
-.r-date{font-size:12px;font-weight:600;grid-row:1;grid-column:1;align-self:center;}
-.r-day{font-size:10px;color:var(--muted);grid-row:1;grid-column:2;align-self:center;}
-.r-name{font-size:13px;font-weight:500;grid-row:1;grid-column:3;align-self:center;}
-.r-meta{grid-row:2;grid-column:1/-1;display:flex;gap:4px;flex-wrap:wrap;padding-top:2px;}
-@media(min-width:480px){
-  .row{grid-template-columns:84px 30px 1fr auto;grid-template-rows:auto;}
-  .r-meta{grid-column:4;grid-row:1;justify-content:flex-end;align-self:center;padding-top:0;}
-}
-.row.overlap{background:#FFF0E8;border-color:#FFCBA8;}
-.row.near{background:#FFF8E6;border-color:#FFD97A;}
-.row.travel{background:#EDFAF2;border-color:#90DDB0;}
-.row.office{background:#EAF2FF;border-color:#9EC5FB;}
-.row.school{background:#F0FAF6;border-color:#7DD4B0;}
-.row.exam{background:#FFF7ED;border-color:#FDBA74;}
-.row.event{background:#F5F3FF;border-color:#C4B5FD;}
-.row.ptm{background:#FFF0F7;border-color:#F9A8D4;}
-.row.bagless{background:#FFF5F5;border-color:#FCA5A5;}
-.row.vacation{background:#F0F9FF;border-color:#7DD3FC;}
-.row.custom{background:#FFFBEB;border-color:#FCD34D;}
-
-/* ── BADGES ── */
-.badge{font-size:10px;padding:2px 6px;border-radius:7px;font-weight:500;white-space:nowrap;}
-.b-office{background:#DDE8FF;color:#0A3F8A;}
-.b-school{background:#CCF0E0;color:#0A5237;}
-.b-both{background:#FFD4B8;color:#C2440E;}
-.b-near{background:#FFE9A0;color:#8A5C00;}
-.b-travel{background:#B6F0D0;color:#1A6B3C;}
-.b-exam{background:#FED7AA;color:#C2410C;}
-.b-event{background:#EDE9FE;color:#6D28D9;}
-.b-ptm{background:#FCE7F3;color:#9D174D;}
-.b-bagless{background:#FEE2E2;color:#991B1B;}
-.b-vacation{background:#E0F2FE;color:#075985;}
-.b-custom{background:#FEF3C7;color:#92400E;}
-.b-mandatory{background:#FFE0DC;color:#8A1A0A;}
-
-/* ── FAB ── */
-.fab{position:fixed;bottom:1.5rem;right:1.5rem;background:#C2440E;color:#fff;border:none;border-radius:50%;width:52px;height:52px;font-size:26px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.3);z-index:200;display:flex;align-items:center;justify-content:center;line-height:1;transition:transform .15s;}
-.fab:active{transform:scale(.92);}
-
-/* ── OVERLAY + PANEL ── */
-.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;}
-.overlay.open{display:block;}
-.panel{position:fixed;bottom:0;left:0;right:0;background:#fff;border-radius:18px 18px 0 0;padding:1.4rem 1.25rem 2rem;z-index:400;max-width:700px;margin:0 auto;transform:translateY(100%);transition:transform .25s ease;max-height:92vh;overflow-y:auto;}
-.panel.open{transform:translateY(0);}
-.panel-title{font-family:'DM Serif Display',serif;font-size:1.15rem;margin-bottom:.9rem;color:var(--text);display:flex;align-items:center;justify-content:space-between;}
-.panel-close{background:transparent;border:none;font-size:20px;cursor:pointer;color:var(--muted);padding:0 4px;}
-
-/* ── FORM FIELDS ── */
-.field{margin-bottom:.75rem;}
-.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:4px;font-weight:500;}
-.field label .req{color:#C2440E;margin-left:2px;}
-.field input,.field select,.field textarea{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:inherit;background:#fff;color:var(--text);}
-.field textarea{height:60px;resize:none;}
-.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid #C2440E;border-color:transparent;}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.comment-field{background:#FFFBEB;border-radius:10px;padding:.65rem .85rem;margin-bottom:.75rem;border:1px solid #FCD34D;}
-.comment-field label{font-size:12px;color:#92400E;font-weight:600;display:block;margin-bottom:4px;}
-.comment-field textarea{border-color:#FCD34D;background:#fff;}
-.panel-btns{display:flex;gap:8px;margin-top:.9rem;}
-.btn-primary{flex:1;padding:11px;background:#C2440E;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;}
-.btn-secondary{padding:11px 14px;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:10px;font-size:14px;cursor:pointer;font-family:inherit;}
-.btn-danger{padding:11px 14px;background:transparent;color:#991B1B;border:1px solid #FCA5A5;border-radius:10px;font-size:14px;cursor:pointer;font-family:inherit;}
-.section-divider{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:.75rem 0 .5rem;font-weight:600;}
-
-/* ── DETAIL VIEW ── */
-.detail-panel .field-row{display:block;}
-.detail-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px;}
-.detail-row:last-child{border:none;}
-.detail-key{color:var(--muted);font-size:12px;}
-.detail-val{font-weight:500;text-align:right;max-width:60%;}
-
-.empty{text-align:center;color:var(--muted);font-size:14px;padding:3rem 0;}
-.loading-msg{text-align:center;color:var(--muted);font-size:14px;padding:2rem 0;}
-.fade-in{animation:fi .2s ease;}
-@keyframes fi{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.hero{background:#1A1A1A;color:#F7F4EF;padding:1.5rem;position:sticky;top:0;z-index:100;border-bottom:1px solid #333;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:1.8rem;margin-bottom:0.25rem;}
+.hero-sub{font-size:0.85rem;opacity:0.7;letter-spacing:0.05rem;text-transform:uppercase;}
+.container{padding:1.25rem;max-width:600px;margin:0 auto;}
+.section-title{font-family:'DM Serif Display',serif;font-size:1.4rem;margin:1.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);color:var(--accent);}
+.card{background:var(--card);border-radius:12px;padding:1rem;margin-bottom:0.75rem;border:1px solid var(--border);display:flex;align-items:center;gap:1rem;}
+.date-box{min-width:55px;text-align:center;border-right:1px solid var(--border);padding-right:0.75rem;}
+.day{display:block;font-size:1.2rem;font-weight:600;}
+.month{display:block;font-size:0.7rem;text-transform:uppercase;color:var(--muted);}
+.info{flex:1;}
+.name{font-weight:600;display:block;margin-bottom:0.2rem;line-height:1.2;}
+.meta{font-size:0.75rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:0.4rem;align-items:center;}
+.tag{padding:2px 6px;border-radius:4px;font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.02rem;}
+.office{background:#E3F2FD;color:#1976D2;}
+.school{background:#FBE9E7;color:#D84315;}
+.events{background:#F3E5F5;color:#7B1FA2;}
+.ptm{background:#E8F5E9;color:#2E7D32;}
+.exams{background:#FFF3E0;color:#E65100;}
+.custom{background:#E0F7FA;color:#00838F;}
 </style>
 </head>
 <body>
 
 <div class="hero">
-  <div class="hero-top">
-    <div>
-      <div class="hero-title">Family <em>Calendar</em> 2026–27</div>
-      <div class="hero-sub">Office · Bala Vidya Mandir · Events · PTM · Exams</div>
-    </div>
-    <div class="next-chip" id="nextchip"><span>Next shared</span>–</div>
-  </div>
-  <div class="sync-bar">
-    <span class="sync-status" id="sync-status">Loading…</span>
-    <button class="reload-btn" onclick="initLoad()">↻ Refresh</button>
-  </div>
-  <div class="class-row">
-    <span class="class-label">Class:</span>
-    <button class="cbtn" data-cl="all">All</button>
-    <button class="cbtn active" data-cl="II">II ★</button>
-    <button class="cbtn" data-cl="I">I</button>
-    <button class="cbtn" data-cl="III">III</button>
-    <button class="cbtn" data-cl="IV">IV</button>
-    <button class="cbtn" data-cl="V">V</button>
-  </div>
-  <div class="stats-row">
-    <div class="stat"><div class="stat-n" id="s-total">–</div><div class="stat-l">Total</div></div>
-    <div class="stat"><div class="stat-n co" id="s-overlap">–</div><div class="stat-l">Both</div></div>
-    <div class="stat"><div class="stat-n cx" id="s-exam">–</div><div class="stat-l">Exams</div></div>
-    <div class="stat"><div class="stat-n cg" id="s-travel">–</div><div class="stat-l">Travel</div></div>
-    <div class="stat"><div class="stat-n cp" id="s-event">–</div><div class="stat-l">Events</div></div>
-    <div class="stat"><div class="stat-n cb" id="s-vac">–</div><div class="stat-l">Vacation</div></div>
-  </div>
-  <div class="filters" id="filters"></div>
+    <h1 class="hero-title">Family Calendar</h1>
+    <p class="hero-sub">Academic Year 2026 – 2027</p>
 </div>
 
-<div class="content">
-  <div class="legend">
-    <div class="litem"><div class="ldot" style="background:#F5A26A"></div>Both</div>
-    <div class="litem"><div class="ldot" style="background:#FFD97A"></div>Near</div>
-    <div class="litem"><div class="ldot" style="background:#6EDFA0"></div>Travel</div>
-    <div class="litem"><div class="ldot" style="background:#9EC5FB"></div>Office</div>
-    <div class="litem"><div class="ldot" style="background:#7DD4B0"></div>School hol</div>
-    <div class="litem"><div class="ldot" style="background:#FDBA74"></div>Exam</div>
-    <div class="litem"><div class="ldot" style="background:#C084FC"></div>Event</div>
-    <div class="litem"><div class="ldot" style="background:#F9A8D4"></div>PTM</div>
-    <div class="litem"><div class="ldot" style="background:#FCA5A5"></div>Bagless</div>
-    <div class="litem"><div class="ldot" style="background:#7DD3FC"></div>Vacation</div>
-    <div class="litem"><div class="ldot" style="background:#FCD34D"></div>Custom</div>
-  </div>
-  <div id="calendar"><div class="loading-msg">Loading calendar…</div></div>
-</div>
-
-<!-- FAB -->
-<button class="fab" id="fabBtn" title="Add entry">+</button>
-
-<!-- Overlay -->
-<div class="overlay" id="overlay"></div>
-
-<!-- ADD / EDIT PANEL -->
-<div class="panel" id="mainPanel">
-  <div class="panel-title">
-    <span id="panelTitle">Add entry</span>
-    <button class="panel-close" id="panelClose">✕</button>
-  </div>
-
-  <div class="field">
-    <label>Date <span class="req">*</span></label>
-    <input type="date" id="f-date" min="2026-01-01" max="2027-06-30">
-  </div>
-
-  <div class="field-row">
-    <div class="field">
-      <label>Category <span class="req">*</span></label>
-      <select id="f-category" onchange="onCategoryChange()">
-        <option value="">— select —</option>
-        <optgroup label="School">
-          <option value="school_holiday">School Holiday</option>
-          <option value="exam">Exam</option>
-          <option value="event">School Event</option>
-          <option value="ptm">PTM / Meeting</option>
-          <option value="bagless">Bagless Day</option>
-          <option value="vacation">Vacation</option>
-        </optgroup>
-        <optgroup label="Office">
-          <option value="office_holiday">Office Holiday</option>
-        </optgroup>
-        <optgroup label="Other">
-          <option value="custom">Custom / Personal</option>
-        </optgroup>
-      </select>
-    </div>
-    <div class="field" id="f-class-wrap">
-      <label>Class(es)</label>
-      <select id="f-class">
-        <option value="all">All classes</option>
-        <option value="II">Class II</option>
-        <option value="I">Class I</option>
-        <option value="III">Class III</option>
-        <option value="IV">Class IV</option>
-        <option value="V">Class V</option>
-        <option value="PreKG,LKG,UKG">PreKG/LKG/UKG</option>
-        <option value="VI">Class VI</option>
-        <option value="VII">Class VII</option>
-        <option value="VIII">Class VIII</option>
-        <option value="IX">Class IX</option>
-        <option value="I,II,III,IV,V">Classes I–V</option>
-        <option value="I,II,III,IV,V,VI,VII,VIII">Classes I–VIII</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="field">
-    <label id="f-name-label">Title / Name <span class="req">*</span></label>
-    <input type="text" id="f-name" placeholder="e.g. Maths Exam, Holiday…">
-  </div>
-
-  <!-- Exam-specific fields -->
-  <div id="exam-fields" style="display:none;">
-    <div class="field-row">
-      <div class="field">
-        <label>Subject <span class="req">*</span></label>
-        <select id="f-subject">
-          <option value="">— select —</option>
-          <option>English</option>
-          <option>Maths</option>
-          <option>L2 (Second Language)</option>
-          <option>L3 (Third Language)</option>
-          <option>EVS</option>
-          <option>Science</option>
-          <option>Social Science</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Exam type</label>
-        <select id="f-examtype">
-          <option>Pen Paper Test 1</option>
-          <option>Pen Paper Test 2</option>
-          <option>Pen Paper Test 3</option>
-          <option>Half Yearly</option>
-          <option>Annual Exam</option>
-          <option>Unit Test</option>
-          <option>Other</option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <!-- Office-specific fields -->
-  <div id="office-fields" style="display:none;">
-    <div class="field">
-      <label>Mandatory holiday?</label>
-      <select id="f-mandatory">
-        <option value="false">No (optional)</option>
-        <option value="true">Yes (mandatory)</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="field" id="f-note-wrap" style="display:none;">
-    <label>Note</label>
-    <textarea id="f-note" placeholder="Any extra details…"></textarea>
-  </div>
-
-  <!-- Mandatory comment -->
-  <div class="comment-field">
-    <label>Why are you adding / changing this? <span class="req">*</span></label>
-    <textarea id="f-comment" placeholder="e.g. Got exam schedule from diary, Rescheduled PTM date…"></textarea>
-  </div>
-
-  <div class="panel-btns">
-    <button class="btn-secondary" id="cancelBtn">Cancel</button>
-    <button class="btn-danger" id="deleteBtn" style="display:none" onclick="confirmDelete()">Delete</button>
-    <button class="btn-primary" id="saveBtn" onclick="saveEntry()">Save</button>
-  </div>
-</div>
-
-<!-- DETAIL PANEL (tap a row to view / edit) -->
-<div class="panel detail-panel" id="detailPanel">
-  <div class="panel-title">
-    <span id="dp-title">Entry detail</span>
-    <button class="panel-close" id="dpClose">✕</button>
-  </div>
-  <div id="dp-body"></div>
-  <div class="panel-btns" style="margin-top:.9rem;">
-    <button class="btn-secondary" id="dpCancel">Close</button>
-    <button class="btn-primary" id="dpEdit" onclick="openEditFromDetail()">Edit</button>
-  </div>
-</div>
+<div class="container" id="calendar-content"></div>
 
 <script>
-// ── CONFIG ────────────────────────────────────────────────────────────────────
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzg-E0tlOFvdpqCnESqFc8_WVWjNg4nQEsozgDB_U6kgx7Of2TAz8Bj7jK-co8sW5RN/exec";
-
-// ── STATE ─────────────────────────────────────────────────────────────────────
-let DB = { office:[], school:[], events:[], ptm:[], exams:[], custom:[], audit:[] };
-let activeClass  = "II";
-let activeFilter = "all";
-let editingEntry = null; // { sheetKey, row }
-
-// ── HELPERS ───────────────────────────────────────────────────────────────────
-const DAYS   = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
-const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-const MS     = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-function td(s){const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d);}
-function fd(s){const d=td(s);return d.getDate()+" "+MS[d.getMonth()]+"'"+String(d.getFullYear()).slice(2);}
-function dn(s){return DAYS[td(s).getDay()].slice(0,3);}
-function iwd(s){const d=td(s).getDay();return d>0&&d<6;}
-function absDiff(a,b){return Math.abs((td(a)-td(b))/86400000);}
-function clMatch(rowClasses, active){
-  if(!rowClasses || rowClasses==="all" || active==="all") return true;
-  return rowClasses.split(",").map(c=>c.trim()).includes(active);
-}
-
-// ── SYNC ──────────────────────────────────────────────────────────────────────
-function setSyncUI(state, msg){
-  const el = document.getElementById("sync-status");
-  el.className = "sync-status " + {loading:"busy",saving:"busy",ok:"ok",error:"err"}[state];
-  el.textContent = msg || {loading:"Loading…", saving:"Saving…", ok:"✓ Synced", error:"⚠ Offline"}[state];
-}
-
-const usingSheets = () => SCRIPT_URL && SCRIPT_URL !== "YOUR_APPS_SCRIPT_URL_HERE";
-
-async function initLoad(){
-  setSyncUI("loading");
-  document.getElementById("calendar").innerHTML = '<div class="loading-msg">Loading calendar…</div>';
-  if(!usingSheets()){
-    setSyncUI("error","⚠ Script URL not set – showing static data");
-    loadStaticFallback();
-    render();
-    return;
-  }
-  try{
-    const r = await fetch(SCRIPT_URL + "?action=getAll", {cache:"no-cache"});
-    const d = await r.json();
-    if(d.ok !== false){
-      DB.office  = d.office  || [];
-      DB.school  = d.school  || [];
-      DB.events  = d.events  || [];
-      DB.ptm     = d.ptm     || [];
-      DB.exams   = d.exams   || [];
-      DB.custom  = d.custom  || [];
-      setSyncUI("ok");
-    } else {
-      setSyncUI("error", "⚠ " + (d.error||"Load failed"));
-    }
-  } catch(e){
-    setSyncUI("error","⚠ Offline");
-  }
-  render();
-}
-
-async function apiCall(body){
-  if(!usingSheets()) return {ok:true,id:"local"};
-  setSyncUI("saving");
-  try{
-    const r = await fetch(SCRIPT_URL, {method:"POST", body:JSON.stringify(body)});
-    const d = await r.json();
-    if(d.ok===false) throw new Error(d.error||"API error");
-    setSyncUI("ok");
-    return d;
-  }catch(e){
-    setSyncUI("error","⚠ " + e.message);
-    throw e;
-  }
-}
-
-// Static fallback when no script URL set
-function loadStaticFallback(){
-  // Minimal office holidays so the calendar is not empty
-  DB.office = [
-    {id:"o1",date:"2026-04-03",name:"Good Friday",mandatory:"true",classes:"all"},
-    {id:"o2",date:"2026-04-14",name:"Tamil New Year",mandatory:"true",classes:"all"},
-    {id:"o3",date:"2026-10-02",name:"Gandhi Jayanti",mandatory:"true",classes:"all"},
-    {id:"o4",date:"2026-12-25",name:"Christmas",mandatory:"true",classes:"all"},
-  ];
-  DB.school = [
-    {id:"s1",date:"2026-04-03",name:"Good Friday",classes:"all"},
-    {id:"s2",date:"2026-04-14",name:"Tamil New Year",classes:"all"},
-    {id:"s3",date:"2026-10-02",name:"Gandhi Jayanthi",classes:"all"},
-    {id:"s4",date:"2026-12-25",name:"Christmas",classes:"all"},
-  ];
-}
-
-// ── BUILD UNIFIED ENTRIES ─────────────────────────────────────────────────────
-function buildEntries(){
-  const map = {};
-  function add(date, type, obj){
-    if(!map[date]) map[date] = {date, office:[], school:[], exams:[], events:[], ptm:[], bagless:[], vacation:[], custom:[]};
-    if(map[date][type]) map[date][type].push(obj);
-  }
-
-  // Office
-  DB.office.forEach(h => add(h.date, "office", h));
-
-  // School holidays (filter by class)
-  DB.school.filter(h => clMatch(h.classes, activeClass)).forEach(h => {
-    const isPoojaVac = h.name && h.name.toLowerCase().includes("pooja vacation");
-    add(h.date, isPoojaVac ? "vacation" : "school", h);
-  });
-
-  // Events (filter by class)
-  DB.events.filter(e => clMatch(e.classes, activeClass)).forEach(e => add(e.date, "events", e));
-
-  // PTM (filter by class)
-  DB.ptm.filter(p => clMatch(p.class, activeClass)).forEach(p => add(p.date, "ptm", p));
-
-  // Exams (filter by class)
-  DB.exams.filter(x => clMatch(x.class, activeClass)).forEach(x => add(x.date, "exams", x));
-
-  // Custom / bagless / vacation
-  DB.custom.filter(c => clMatch(c.classes, activeClass)).forEach(c => {
-    const t = c.type || "custom";
-    const bucket = t === "bagless" ? "bagless" : t === "vacation" ? "vacation" : "custom";
-    add(c.date, bucket, c);
-  });
-
-  const entries = Object.values(map).sort((a,b) => a.date.localeCompare(b.date));
-  const allDates = entries.map(e => e.date);
-
-  entries.forEach((e, i) => {
-    e.overlap = e.office.length > 0 && e.school.length > 0;
-    e.near = false;
-    if(!e.overlap && (e.office.length > 0 || e.school.length > 0)){
-      for(let j = 0; j < allDates.length; j++){
-        if(i !== j && absDiff(e.date, allDates[j]) <= 5 && absDiff(e.date, allDates[j]) > 0){
-          const ej = entries[j];
-          if((e.office.length>0&&ej.school.length>0)||(e.school.length>0&&ej.office.length>0)){
-            e.near = true; break;
-          }
-        }
-      }
-    }
-    e.travel = e.school.length > 0 && e.office.length === 0 && iwd(e.date) && !e.overlap;
-  });
-  return entries;
-}
-
-function rowClass(e){
-  if(e.overlap)  return "overlap";
-  if(e.near)     return "near";
-  if(e.travel)   return "travel";
-  if(e.vacation.length > 0) return "vacation";
-  if(e.office.length > 0 && e.school.length === 0) return "office";
-  if(e.school.length > 0)   return "school";
-  if(e.exams.length > 0)    return "exam";
-  if(e.ptm.length > 0)      return "ptm";
-  if(e.bagless.length > 0)  return "bagless";
-  if(e.custom.length > 0)   return "custom";
-  return "event";
-}
-
-// ── FILTER ────────────────────────────────────────────────────────────────────
-const filterDefs = [
-  {id:"all",    label:"All"},
-  {id:"overlap",label:"Same day"},
-  {id:"near",   label:"Near dates"},
-  {id:"travel", label:"Travel opp"},
-  {id:"office", label:"Office"},
-  {id:"school", label:"School hol"},
-  {id:"exam",   label:"Exams"},
-  {id:"event",  label:"Events"},
-  {id:"ptm",    label:"PTM"},
-  {id:"bagless",label:"Bagless"},
-  {id:"vacation",label:"Vacation"},
-  {id:"custom", label:"Custom"},
-];
-
-function matches(e){
-  if(activeFilter==="all")      return true;
-  if(activeFilter==="overlap")  return e.overlap;
-  if(activeFilter==="near")     return e.near && !e.overlap;
-  if(activeFilter==="travel")   return e.travel;
-  if(activeFilter==="office")   return e.office.length > 0;
-  if(activeFilter==="school")   return e.school.length > 0;
-  if(activeFilter==="exam")     return e.exams.length > 0;
-  if(activeFilter==="event")    return e.events.length > 0;
-  if(activeFilter==="ptm")      return e.ptm.length > 0;
-  if(activeFilter==="bagless")  return e.bagless.length > 0;
-  if(activeFilter==="vacation") return e.vacation.length > 0;
-  if(activeFilter==="custom")   return e.custom.length > 0;
-  return true;
-}
-
-// ── RENDER ────────────────────────────────────────────────────────────────────
-function renderFilters(){
-  const fc = document.getElementById("filters");
-  fc.innerHTML = "";
-  filterDefs.forEach(f => {
-    const b = document.createElement("button");
-    b.className = "fbtn" + (activeFilter===f.id?" active":"");
-    b.dataset.c = f.id;
-    b.textContent = f.label;
-    b.onclick = () => { activeFilter = f.id; render(); };
-    fc.appendChild(b);
-  });
-}
-
-function render(){
-  renderFilters();
-  const entries = buildEntries();
-  const today = new Date();
-  const curKey = today.getFullYear() + "-" + String(today.getMonth()).padStart(2,"0");
-
-  // Stats
-  let ov=0, ex=0, tr=0, ev=0, vac=0;
-  entries.forEach(e => {
-    if(e.overlap) ov++;
-    if(e.exams.length > 0) ex++;
-    if(e.travel) tr++;
-    if(e.events.length > 0) ev++;
-    if(e.vacation.length > 0) vac++;
-  });
-  document.getElementById("s-total").textContent   = entries.length;
-  document.getElementById("s-overlap").textContent = ov;
-  document.getElementById("s-exam").textContent    = ex;
-  document.getElementById("s-travel").textContent  = tr;
-  document.getElementById("s-event").textContent   = ev;
-  document.getElementById("s-vac").textContent     = vac;
-
-  // Next shared
-  const nxt = entries.find(e => e.overlap && td(e.date) >= today);
-  if(nxt){
-    const n = [...new Set([...nxt.office.map(x=>x.name),...nxt.school.map(x=>x.name)])][0] || "";
-    document.getElementById("nextchip").innerHTML = `<span>Next shared</span>${fd(nxt.date)} · ${n}`;
-  }
-
-  const filtered = entries.filter(matches);
-  const cal = document.getElementById("calendar");
-  if(!filtered.length){ cal.innerHTML = '<div class="empty">No entries for this filter.</div>'; return; }
-
-  const byMonth = {};
-  filtered.forEach(e => {
-    const d = td(e.date);
-    const key = d.getFullYear() + "-" + String(d.getMonth()).padStart(2,"0");
-    if(!byMonth[key]) byMonth[key] = {label: MONTHS[d.getMonth()]+" "+d.getFullYear(), key, entries:[]};
-    byMonth[key].entries.push(e);
-  });
-
-  let html = "";
-  Object.values(byMonth).forEach(m => {
-    const isCur = m.key === curKey;
-    html += `<div class="month-group" id="m-${m.key}">
-      <div class="month-label">${m.label}${isCur?'<span class="now-pill">NOW</span>':''}</div>`;
-    m.entries.forEach(e => {
-      const rc = rowClass(e);
-      // Build name string
-      const allItems = [...e.office,...e.school,...e.exams,...e.events,...e.ptm,...e.bagless,...e.vacation,...e.custom];
-      const names = [...new Set(allItems.map(x => x.subject ? `${x.subject} (${x.examType||"Exam"})` : x.name))].join(" · ");
-      // Badges
-      let b = "";
-      if(e.office.length>0)   b += `<span class="badge b-office">Office</span>`;
-      if(e.school.length>0)   b += `<span class="badge b-school">Holiday</span>`;
-      if(e.exams.length>0)    b += `<span class="badge b-exam">Exam</span>`;
-      if(e.overlap)            b += `<span class="badge b-both">Both</span>`;
-      else if(e.near)          b += `<span class="badge b-near">Near</span>`;
-      if(e.travel)             b += `<span class="badge b-travel">✈ Travel</span>`;
-      if(e.events.length>0)   b += `<span class="badge b-event">Event</span>`;
-      if(e.ptm.length>0)      b += `<span class="badge b-ptm">PTM</span>`;
-      if(e.bagless.length>0)  b += `<span class="badge b-bagless">Bagless</span>`;
-      if(e.vacation.length>0) b += `<span class="badge b-vacation">Vacation</span>`;
-      if(e.custom.length>0)   b += `<span class="badge b-custom">Custom</span>`;
-      if(e.office.some(x=>x.mandatory==="true")) b += `<span class="badge b-mandatory">Mandatory</span>`;
-      // Encode for tap-to-view
-      const encoded = encodeURIComponent(JSON.stringify({date:e.date, rc}));
-      html += `<div class="row ${rc}" onclick="openDetail('${e.date}')">
-        <div class="r-date">${fd(e.date)}</div>
-        <div class="r-day">${dn(e.date)}</div>
-        <div class="r-name">${names}</div>
-        <div class="r-meta">${b}</div>
-      </div>`;
-    });
-    html += "</div>";
-  });
-  cal.innerHTML = `<div class="fade-in">${html}</div>`;
-
-  // Scroll to current/nearest future month
-  setTimeout(() => {
-    const keys = Object.keys(byMonth).sort();
-    const targetKey = keys.find(k => k >= curKey) || keys[0];
-    const el = document.getElementById("m-" + targetKey);
-    if(el){
-      const heroH = document.querySelector(".hero").offsetHeight;
-      window.scrollTo({top: el.getBoundingClientRect().top + window.scrollY - heroH - 10, behavior:"smooth"});
-    }
-  }, 60);
-}
-
-// ── DETAIL VIEW ───────────────────────────────────────────────────────────────
-let currentDetailDate = null;
-
-function openDetail(date){
-  currentDetailDate = date;
-  const entries = buildEntries();
-  const e = entries.find(x => x.date === date);
-  if(!e) return;
-
-  const allItems = [...e.office,...e.school,...e.exams,...e.events,...e.ptm,...e.bagless,...e.vacation,...e.custom];
-
-  let rows = `<div class="detail-row"><span class="detail-key">Date</span><span class="detail-val">${fd(date)} (${dn(date)})</span></div>`;
-
-  allItems.forEach(item => {
-    const sheetKey = getSheetKeyForItem(item);
-    const name = item.subject ? `${item.subject} – ${item.examType||""}` : item.name;
-    rows += `<div class="detail-row" style="flex-direction:column;gap:4px;align-items:flex-start;">
-      <div style="display:flex;justify-content:space-between;width:100%;">
-        <span class="detail-val" style="max-width:100%">${name}</span>
-        <span class="detail-key" style="white-space:nowrap;padding-left:8px">${sheetKey}</span>
-      </div>
-      ${item.comment?`<span style="font-size:11px;color:var(--muted)">Note: ${item.comment}</span>`:""}
-      ${item.updatedAt?`<span style="font-size:10px;color:#bbb">Updated: ${item.updatedAt.slice(0,10)}</span>`:""}
-      <div style="display:flex;gap:6px;margin-top:4px;">
-        <button onclick="openEditPanel('${sheetKey}','${item.id}')" style="font-size:11px;padding:2px 9px;border-radius:7px;border:1px solid var(--border);background:transparent;cursor:pointer;color:var(--text)">Edit</button>
-        <button onclick="startDelete('${sheetKey}','${item.id}')" style="font-size:11px;padding:2px 9px;border-radius:7px;border:1px solid #FCA5A5;background:transparent;cursor:pointer;color:#991B1B">Delete</button>
-      </div>
-    </div>`;
-  });
-
-  document.getElementById("dp-title").textContent = fd(date) + " – " + dn(date);
-  document.getElementById("dp-body").innerHTML = rows;
-  openPanel("detailPanel");
-}
-
-function getSheetKeyForItem(item){
-  if(DB.office.find(x=>x.id===item.id))  return "OFFICE";
-  if(DB.school.find(x=>x.id===item.id))  return "SCHOOL";
-  if(DB.events.find(x=>x.id===item.id))  return "EVENTS";
-  if(DB.ptm.find(x=>x.id===item.id))     return "PTM";
-  if(DB.exams.find(x=>x.id===item.id))   return "EXAMS";
-  if(DB.custom.find(x=>x.id===item.id))  return "CUSTOM";
-  return "CUSTOM";
-}
-
-// ── ADD / EDIT PANEL ──────────────────────────────────────────────────────────
-function openAddPanel(){
-  editingEntry = null;
-  document.getElementById("panelTitle").textContent = "Add entry";
-  document.getElementById("deleteBtn").style.display = "none";
-  document.getElementById("saveBtn").textContent = "Save";
-  clearForm();
-  // Default date to today
-  document.getElementById("f-date").value = new Date().toISOString().slice(0,10);
-  openPanel("mainPanel");
-}
-
-function openEditPanel(sheetKey, id){
-  closeAllPanels();
-  // find item
-  const dbKey = sheetKey.toLowerCase();
-  const arr = dbKey === "office" ? DB.office : dbKey === "school" ? DB.school :
-              dbKey === "events" ? DB.events : dbKey === "ptm" ? DB.ptm :
-              dbKey === "exams" ? DB.exams : DB.custom;
-  const item = arr.find(x => x.id === id);
-  if(!item) return;
-
-  editingEntry = {sheetKey, id, item};
-  document.getElementById("panelTitle").textContent = "Edit entry";
-  document.getElementById("deleteBtn").style.display = "block";
-  document.getElementById("saveBtn").textContent = "Update";
-
-  // Populate form
-  document.getElementById("f-date").value = item.date || "";
-  document.getElementById("f-name").value = item.name || "";
-  document.getElementById("f-class").value = item.classes || item.class || "all";
-  document.getElementById("f-comment").value = "";
-
-  // Category
-  const catMap = {OFFICE:"office_holiday", SCHOOL:"school_holiday", EVENTS:"event", PTM:"ptm", EXAMS:"exam", CUSTOM: item.type||"custom"};
-  document.getElementById("f-category").value = catMap[sheetKey] || "custom";
-  onCategoryChange();
-
-  if(sheetKey === "EXAMS"){
-    document.getElementById("f-subject").value = item.subject || "";
-    document.getElementById("f-examtype").value = item.examType || "Pen Paper Test 1";
-  }
-  if(sheetKey === "OFFICE"){
-    document.getElementById("f-mandatory").value = item.mandatory || "false";
-  }
-  if(item.note) document.getElementById("f-note").value = item.note;
-
-  openPanel("mainPanel");
-}
-
-function openEditFromDetail(){
-  // close detail, form already populated if editing
-  closeAllPanels();
-  openAddPanel();
-}
-
-function clearForm(){
-  ["f-date","f-name","f-comment","f-note"].forEach(id => document.getElementById(id).value = "");
-  document.getElementById("f-category").value = "";
-  document.getElementById("f-class").value = activeClass !== "all" ? activeClass : "II";
-  document.getElementById("f-subject").value = "";
-  document.getElementById("f-examtype").value = "Pen Paper Test 1";
-  document.getElementById("f-mandatory").value = "false";
-  onCategoryChange();
-}
-
-function onCategoryChange(){
-  const cat = document.getElementById("f-category").value;
-  document.getElementById("exam-fields").style.display   = cat === "exam" ? "block" : "none";
-  document.getElementById("office-fields").style.display = cat === "office_holiday" ? "block" : "none";
-  document.getElementById("f-note-wrap").style.display   = cat === "custom" ? "block" : "none";
-  // Class selector: hide for office (applies to all)
-  document.getElementById("f-class-wrap").style.display  = cat === "office_holiday" ? "none" : "block";
-}
-
-async function saveEntry(){
-  const date     = document.getElementById("f-date").value;
-  const name     = document.getElementById("f-name").value.trim();
-  const cat      = document.getElementById("f-category").value;
-  const classes  = document.getElementById("f-class").value || "all";
-  const comment  = document.getElementById("f-comment").value.trim();
-  const subject  = document.getElementById("f-subject").value;
-  const examType = document.getElementById("f-examtype").value;
-  const mandatory= document.getElementById("f-mandatory").value;
-  const note     = document.getElementById("f-note").value.trim();
-
-  if(!date || !cat || (!name && cat !== "exam")) { alert("Please fill in date, category, and title."); return; }
-  if(cat === "exam" && !subject) { alert("Please select a subject for the exam."); return; }
-  if(!comment) { alert("Please enter a reason / comment — it is required."); return; }
-
-  // Map category to sheet key
-  const sheetMap = {
-    office_holiday: "OFFICE", school_holiday: "SCHOOL", event: "EVENTS",
-    ptm: "PTM", exam: "EXAMS", bagless: "CUSTOM", vacation: "CUSTOM", custom: "CUSTOM"
-  };
-  const sheetKey = sheetMap[cat] || "CUSTOM";
-
-  // Build data object per sheet schema
-  let data = {};
-  if(sheetKey === "OFFICE")  data = {date, name, mandatory, classes:"all"};
-  if(sheetKey === "SCHOOL")  data = {date, name, classes};
-  if(sheetKey === "EVENTS")  data = {date, name, classes};
-  if(sheetKey === "PTM")     data = {date, name, class:classes};
-  if(sheetKey === "EXAMS")   data = {date, subject, examType, class:classes, name: name||subject};
-  if(sheetKey === "CUSTOM")  data = {date, name:name||cat, type:cat, category: cat==="exam"?"school":"other", classes, note};
-
-  const btn = document.getElementById("saveBtn");
-  btn.disabled = true;
-  btn.textContent = "Saving…";
-
-  try {
-    if(editingEntry){
-      await apiCall({action:"update", sheet:sheetKey, id:editingEntry.id, data, comment});
-      // Update local DB
-      updateLocalDB(sheetKey, editingEntry.id, {...data, comment});
-    } else {
-      const res = await apiCall({action:"add", sheet:sheetKey, data, comment});
-      // Add to local DB
-      addLocalDB(sheetKey, {...data, id:res.id||("local-"+Date.now()), comment, addedBy:"user"});
-    }
-    closeAllPanels();
-    render();
-  } catch(e){
-    alert("Error: " + e.message);
-  } finally {
-    btn.disabled = false;
-    btn.textContent = editingEntry ? "Update" : "Save";
-  }
-}
-
-// ── DELETE ────────────────────────────────────────────────────────────────────
-let pendingDelete = null;
-
-function startDelete(sheetKey, id){
-  pendingDelete = {sheetKey, id};
-  const comment = prompt("Reason for deleting this entry? (required)");
-  if(!comment || !comment.trim()){ alert("Comment is required to delete."); return; }
-  confirmDeleteWithComment(comment.trim());
-}
-
-async function confirmDeleteWithComment(comment){
-  if(!pendingDelete) return;
-  const {sheetKey, id} = pendingDelete;
-  try{
-    await apiCall({action:"delete", sheet:sheetKey, id, comment});
-    removeLocalDB(sheetKey, id);
-    closeAllPanels();
-    render();
-  }catch(e){
-    alert("Error: " + e.message);
-  }
-  pendingDelete = null;
-}
-
-function confirmDelete(){
-  if(!editingEntry) return;
-  startDelete(editingEntry.sheetKey, editingEntry.id);
-}
-
-// ── LOCAL DB HELPERS ─────────────────────────────────────────────────────────
-function dbArrForKey(k){
-  return {OFFICE:"office",SCHOOL:"school",EVENTS:"events",PTM:"ptm",EXAMS:"exams",CUSTOM:"custom"}[k];
-}
-function addLocalDB(sheetKey, item){ const k=dbArrForKey(sheetKey); if(k) DB[k].push(item); }
-function updateLocalDB(sheetKey, id, newData){
-  const k=dbArrForKey(sheetKey);
-  if(!k) return;
-  const i=DB[k].findIndex(x=>x.id===id);
-  if(i>=0) DB[k][i]={...DB[k][i],...newData};
-}
-function removeLocalDB(sheetKey, id){
-  const k=dbArrForKey(sheetKey);
-  if(k) DB[k]=DB[k].filter(x=>x.id!==id);
-}
-
-// ── PANEL HELPERS ─────────────────────────────────────────────────────────────
-function openPanel(id){
-  document.getElementById("overlay").classList.add("open");
-  document.getElementById(id).classList.add("open");
-}
-function closeAllPanels(){
-  document.getElementById("overlay").classList.remove("open");
-  document.querySelectorAll(".panel").forEach(p=>p.classList.remove("open"));
-  editingEntry = null;
-  pendingDelete = null;
-}
-
-// ── WIRE UP ───────────────────────────────────────────────────────────────────
-document.getElementById("fabBtn").onclick = openAddPanel;
-document.getElementById("overlay").onclick = closeAllPanels;
-document.getElementById("panelClose").onclick = closeAllPanels;
-document.getElementById("cancelBtn").onclick = closeAllPanels;
-document.getElementById("dpClose").onclick = closeAllPanels;
-document.getElementById("dpCancel").onclick = closeAllPanels;
-document.getElementById("dpEdit").onclick = () => {
-  // dpEdit is handled per-row inline; this closes detail
-  closeAllPanels();
+const CALENDAR_DATA = {
+  office: [
+    {date:"2026-01-01", name:"New Year", mandatory:"true"},{date:"2026-01-15", name:"Pongal", mandatory:"false"},{date:"2026-01-16", name:"Thiruvalluvar Day", mandatory:"false"},{date:"2026-01-26", name:"Republic Day", mandatory:"true"},{date:"2026-04-03", name:"Good Friday", mandatory:"true"},{date:"2026-04-14", name:"Tamil New Year", mandatory:"true"},{date:"2026-05-01", name:"May Day", mandatory:"false"},{date:"2026-05-27", name:"Bakrid", mandatory:"true"},{date:"2026-08-15", name:"Independence Day", mandatory:"false"},{date:"2026-09-14", name:"Ganesh Chaturthi", mandatory:"false"},{date:"2026-10-02", name:"Gandhi Jayanti", mandatory:"true"},{date:"2026-10-20", name:"Dussehra / Vijayadashami", mandatory:"true"},{date:"2026-11-09", name:"Deepavali (Next day)", mandatory:"true"},{date:"2026-12-25", name:"Christmas", mandatory:"true"}
+  ],
+  school: [
+    {date:"2026-04-03", name:"Good Friday"},{date:"2026-04-14", name:"Tamil New Year"},{date:"2026-05-01", name:"May Day"},{date:"2026-05-28", name:"Bakrid"},{date:"2026-06-13", name:"Holiday"},{date:"2026-06-19", name:"Holiday – School function (Pre-KG to IX)"},{date:"2026-06-20", name:"Holiday"},{date:"2026-06-26", name:"Muharram"},{date:"2026-07-11", name:"Holiday"},{date:"2026-07-25", name:"Holiday"},{date:"2026-07-30", name:"Holiday (Pre-KG to UKG & VI–XII)"},{date:"2026-07-31", name:"Holiday (Pre-KG to V)"},{date:"2026-08-07", name:"Holiday"},{date:"2026-08-15", name:"Independence Day"},{date:"2026-08-21", name:"Varalakshmi Vratham"},{date:"2026-08-26", name:"Onam & Milad-Un-Nabi"},{date:"2026-08-27", name:"Avani Avittam"},{date:"2026-09-04", name:"Gokulashtami"},{date:"2026-09-14", name:"Vinayagar Chaturthi"},{date:"2026-09-26", name:"Holiday"},{date:"2026-10-02", name:"Gandhi Jayanthi"},{date:"2026-10-10", name:"Pooja Vacation"},{date:"2026-10-11", name:"Pooja Vacation"},{date:"2026-10-12", name:"Pooja Vacation"},{date:"2026-10-13", name:"Pooja Vacation"},{date:"2026-10-14", name:"Pooja Vacation"},{date:"2026-10-15", name:"Pooja Vacation"},{date:"2026-10-16", name:"Pooja Vacation"},{date:"2026-10-17", name:"Pooja Vacation"},{date:"2026-10-18", name:"Pooja Vacation"},{date:"2026-10-19", name:"Ayudha Pooja"},{date:"2026-10-20", name:"Vijayadasami"},{date:"2026-11-07", name:"Deepavali"},{date:"2026-11-08", name:"Deepavali"},{date:"2026-11-09", name:"Deepavali"},{date:"2026-11-24", name:"Karthigai Deepam"},{date:"2026-12-19", name:"Holiday"},{date:"2026-12-25", name:"Christmas"},{date:"2027-01-01", name:"New Year"},{date:"2027-01-14", name:"Bhogi"},{date:"2027-01-15", name:"Pongal"},{date:"2027-01-16", name:"Pongal"},{date:"2027-01-17", name:"Pongal"},{date:"2027-01-26", name:"Republic Day"},{date:"2027-01-30", name:"Holiday"},{date:"2027-02-13", name:"Holiday"},{date:"2027-02-20", name:"Holiday"}
+  ],
+  events: [
+    {date:"2026-06-01", name:"Parent Orientation – IX to XII"},{date:"2026-06-02", name:"Parent Orientation – III to VIII"},{date:"2026-06-03", name:"Parent Orientation – LKG to II"},{date:"2026-06-04", name:"Orientation & Aksharabhyasam – Pre KG"},{date:"2026-06-12", name:"Investiture Ceremony"},{date:"2026-06-19", name:"Kalanjali Ventures 2026"},{date:"2026-06-23", name:"Mock Fire Drill"},{date:"2026-06-25", name:"Inauguration of Clubs"},{date:"2026-06-27", name:"Senior Inter-House Match"},{date:"2026-07-04", name:"Senior Sports Day"},{date:"2026-07-30", name:"Primary School Day"},{date:"2026-07-31", name:"Senior School Day"},{date:"2026-08-12", name:"BVM MUN 2026"},{date:"2026-08-15", name:"Independence Day Celebration"},{date:"2026-08-17", name:"BVM – AARUSH"},{date:"2026-08-24", name:"Onam Celebration & Litsav"},{date:"2026-08-25", name:"DEAR Programme"},{date:"2026-08-28", name:"Gayathri Japam (Starts 10:10 am)"},{date:"2026-08-29", name:"STEM Expo"},{date:"2026-08-31", name:"Legal Symposium"},{date:"2026-09-03", name:"Krishna Jayanthi Celebration"},{date:"2026-09-05", name:"Teachers' Day"},{date:"2026-09-11", name:"KG Sports Day & Vinayagar Chaturthi"},{date:"2026-10-09", name:"Navratri Celebration"},{date:"2026-10-22", name:"Vijayadasami Celebration"},{date:"2026-11-05", name:"Inter-House Dramatics & Commerce Symposium"},{date:"2026-11-11", name:"XLNS Bagless Day"},{date:"2026-11-13", name:"Primary Children's Day"},{date:"2026-11-14", name:"Debate Finals – Seniors"},{date:"2026-11-19", name:"Junior Inter-House Match"},{date:"2026-12-05", name:"KG School Day"},{date:"2026-12-11", name:"Inter-House Dramatics English"},{date:"2026-12-15", name:"Debate Finals – Tamil"},{date:"2026-12-16", name:"Margazhi Utsavam"},{date:"2026-12-18", name:"Fire Drill"},{date:"2026-12-23", name:"Christmas Celebration"},{date:"2027-01-07", name:"Primary Sports Day & Art Exhibition"},{date:"2027-01-13", name:"Pongal Celebration"},{date:"2027-01-26", name:"Republic Day Celebration"},{date:"2027-01-29", name:"Bala Rang Tarang"},{date:"2027-02-05", name:"School Events End of Year"}
+  ],
+  ptm: [
+    {date:"2026-07-10", name:"PTM – Class I & XII"},{date:"2026-07-17", name:"PTM – Class II & X"},{date:"2026-07-18", name:"PTM – LKG & UKG"},{date:"2026-07-24", name:"PTM – Class III & XI"},{date:"2026-08-07", name:"PTM – Class IV & VI"},{date:"2026-08-14", name:"PTM – Class IX"},{date:"2026-09-03", name:"PTM – Class VII"},{date:"2026-09-11", name:"PTM – Class V"},{date:"2026-09-12", name:"PTM – Pre KG & Class VIII"},{date:"2026-12-05", name:"PTM – Class XII"},{date:"2027-01-09", name:"PTM – Class I"},{date:"2027-01-21", name:"PTM – Class II"},{date:"2027-01-23", name:"PTM – Pre KG / LKG / UKG / IX / X"},{date:"2027-01-27", name:"PTM – Class VIII"},{date:"2027-01-28", name:"PTM – Class XI"},{date:"2027-02-06", name:"PTM – Class IV & VI"},{date:"2027-02-12", name:"PTM – Class VII"},{date:"2027-02-19", name:"PTM – Class III"},{date:"2027-02-26", name:"PTM – Class V"}
+  ],
+  exams: [
+    {date:"2026-06-22", name:"English (CL-2), Maths (CL-3), EVS (CL-4), L2 (CL-5)", type:"Pen Paper Test 1"},{date:"2026-06-23", name:"Maths (CL-2), L2 (CL-3), English (CL-4), Maths (CL-5)", type:"Pen Paper Test 1"},{date:"2026-06-24", name:"L2 (CL-2), English (CL-3), Maths (CL-4), L3 (CL-5)", type:"Pen Paper Test 1"},{date:"2026-06-25", name:"L3 (CL-2), EVS (CL-3), L2 (CL-4), English (CL-5)", type:"Pen Paper Test 1"},{date:"2026-06-29", name:"L3 (CL-3), L3 (CL-4), EVS (CL-5)", type:"Pen Paper Test 1"}
+  ],
+  custom: [
+    {date:"2026-06-18", name:"Bagless Day (1–8)"},{date:"2026-07-27", name:"Bagless Day (1–8)"},{date:"2026-08-24", name:"Bagless Day (1–8)"},{date:"2026-10-09", name:"Bagless Day (1–8)"},{date:"2026-11-05", name:"Bagless Day (1–8)"},{date:"2026-11-14", name:"Bagless Day (1–8)"},{date:"2026-12-15", name:"Bagless Day (1–8)"},{date:"2027-01-13", name:"Bagless Day (1–8)"},{date:"2027-02-01", name:"Bagless Day (1–8)"},{date:"2027-02-22", name:"Bagless Day (1–8)"},{date:"2026-10-10", name:"Pooja Vacation Begins"},{date:"2026-10-21", name:"School Reopens (Pooja)"},{date:"2026-12-24", name:"Christmas Vacation Begins"},{date:"2027-01-04", name:"School Reopens (Winter)"},{date:"2027-03-13", name:"Last Working Day"},{date:"2027-03-24", name:"Results Day"}
+  ]
 };
 
-document.querySelectorAll(".cbtn").forEach(b => {
-  b.onclick = () => {
-    document.querySelectorAll(".cbtn").forEach(x=>x.classList.remove("active"));
-    b.classList.add("active");
-    activeClass = b.dataset.cl;
-    render();
-  };
-});
-
-// ── INIT ──────────────────────────────────────────────────────────────────────
-initLoad();
+function render() {
+    const container = document.getElementById('calendar-content');
+    const allEvents = [];
+    Object.keys(CALENDAR_DATA).forEach(cat => {
+        CALENDAR_DATA[cat].forEach(item => { allEvents.push({...item, category: cat}); });
+    });
+    allEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+    const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let currentMonth = "";
+    let html = "";
+    allEvents.forEach(event => {
+        const d = new Date(event.date);
+        const monthYear = months[d.getMonth()] + " " + d.getFullYear();
+        if (monthYear !== currentMonth) {
+            currentMonth = monthYear;
+            html += `<h2 class="section-title">${currentMonth}</h2>`;
+        }
+        html += `
+            <div class="card">
+                <div class="date-box">
+                    <span class="day">${d.getDate()}</span>
+                    <span class="month">${months[d.getMonth()].slice(0,3)}</span>
+                </div>
+                <div class="info">
+                    <span class="name">${event.name}</span>
+                    <div class="meta">
+                        <span class="tag ${event.category}">${event.category}</span>
+                        ${event.type ? `<span>• ${event.type}</span>` : ''}
+                        ${event.mandatory === "true" ? `<span style="color:#d32f2f; font-weight:bold;">• Mandatory</span>` : ''}
+                    </div>
+                </div>
+            </div>`;
+    });
+    container.innerHTML = html || "<p style='text-align:center; padding:2rem;'>No dates found.</p>";
+}
+window.onload = render;
 </script>
 </body>
 </html>
